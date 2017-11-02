@@ -1,4 +1,4 @@
-package mao.machine.learning;
+package mao.machineLearning.KDT;
 
 public class KdNode {
 	private int x1;
