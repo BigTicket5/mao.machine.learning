@@ -8,6 +8,7 @@ public class KdTree {
 		KdNode nodevalue;
 		KdTreeNode left;
 		KdTreeNode right;
+		KdTreeNode(){}
 		KdTreeNode(KdNode value){
 			this.nodevalue = value;
 		}
@@ -44,5 +45,59 @@ public class KdTree {
 			if(dir==0)return a.getX1() - b.getX1();
 			else return a.getX2() - b.getX2();
 	    }
+	}
+	
+	private double w = Double.MAX_VALUE;
+	private KdTreeNode result = new KdTreeNode();
+	public void searchKDTree(KdTreeNode targetNode,KdTreeNode root){
+		searchHelper(targetNode,root,0);
+		System.out.println(result.nodevalue.getX1()+","+result.nodevalue.getX2());
+	}
+	
+	public void searchHelper(KdTreeNode target, KdTreeNode curNode, int dim){
+		if(curNode.left==null&&curNode.right==null){
+			double tmpw = Odistance(curNode,target);
+			if(tmpw < w){
+				w = tmpw;
+				result = curNode;
+			}
+			return;
+		}
+		else{
+			if(dim==0){
+				if(target.nodevalue.getX1()<=curNode.nodevalue.getX1()){
+					if(target.nodevalue.getX1()-w<=curNode.nodevalue.getX1()&&curNode.left!=null) 
+						searchHelper(target,curNode.left,(dim+1)%2);
+					if(target.nodevalue.getX1()+w>curNode.nodevalue.getX1()&&curNode.right!=null)
+						searchHelper(target,curNode.right,(dim+1)%2);
+				}
+				else {
+					if(target.nodevalue.getX1()+w>curNode.nodevalue.getX1()&&curNode.right!=null)
+						searchHelper(target,curNode.right,(dim+1)%2);
+					if(target.nodevalue.getX1()-w<=curNode.nodevalue.getX1()&&curNode.left!=null) 
+						searchHelper(target,curNode.left,(dim+1)%2);
+				}
+			}
+			else{
+				if(target.nodevalue.getX2()<=curNode.nodevalue.getX2()){
+					if(target.nodevalue.getX2()-w<=curNode.nodevalue.getX2()&&curNode.left!=null) 
+						searchHelper(target,curNode.left,(dim+1)%2);
+					if(target.nodevalue.getX2()+w>curNode.nodevalue.getX2()&&curNode.right!=null)
+						searchHelper(target,curNode.right,(dim+1)%2);
+				}
+				else{
+					if(target.nodevalue.getX2()+w>curNode.nodevalue.getX2()&&curNode.right!=null)
+						searchHelper(target,curNode.right,(dim+1)%2);
+					if(target.nodevalue.getX2()-w<=curNode.nodevalue.getX2()&&curNode.left!=null) 
+						searchHelper(target,curNode.left,(dim+1)%2);
+				}
+			}
+		}
+	}
+	
+	public double Odistance(KdTreeNode node1, KdTreeNode node2){
+		double x1 = Math.pow((node1.nodevalue.getX1()-node2.nodevalue.getX1()),2);
+		double x2 = Math.pow((node1.nodevalue.getX2()-node2.nodevalue.getX2()),2);
+		return Math.pow(x1+x2, 0.5);
 	}
 }
