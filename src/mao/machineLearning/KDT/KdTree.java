@@ -47,7 +47,7 @@ public class KdTree {
 	    }
 	}
 	
-	private double w = Double.MAX_VALUE;
+	private Double w = Double.MAX_VALUE;
 	private KdTreeNode result = new KdTreeNode();
 	public void searchKDTree(KdTreeNode targetNode,KdTreeNode root){
 		searchHelper(targetNode,root,0);

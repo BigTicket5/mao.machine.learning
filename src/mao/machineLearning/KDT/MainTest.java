@@ -10,7 +10,7 @@ public class MainTest {
 		KdNode n4 = new KdNode(4,7);
 		KdNode n5 = new KdNode(8,1);
 		KdNode n6 = new KdNode(7,2);
-		KdNode t = new KdNode(9,3);
+		KdNode t = new KdNode(2,5);
 		KdNode[] nodearr = {n1,n2,n3,n4,n5,n6};
 		KdTree tree = new KdTree();
 		tree.root = tree.createTree(nodearr);
